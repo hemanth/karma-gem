@@ -5,8 +5,9 @@ require 'fileutils'
 class Karma
    def self.do(data)
         # This used dbm of ruby, it maintains the karma for user names
-        FileUtils.touch '.karma.db' unless File.exist?('.karma.db')  
-        kdb = DBM.open(".karma.db")
+        karma_db = File.expand_path('~/.karma.db', File.dirname(__FILE__))
+        FileUtils.touch karma_db unless File.exist?(karma_db)  
+        kdb = DBM.open(karma_db)
         whom,what = ""
         whom,what = data.split(/(?=\+\+)|(?=\-\-)/)
 
@@ -38,3 +39,4 @@ class Karma
      end
    end
 end
+
